@@ -2,3 +2,5 @@
 lex.yy.c
 output
 test.l
+parser.tab.c
+parser.tab.h
