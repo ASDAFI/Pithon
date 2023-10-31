@@ -1,5 +1,7 @@
 %{
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 extern int yylex();
 void yyerror(const char* msg);
@@ -12,6 +14,11 @@ void increase_indent() {
 
 void decrease_indent() {
     indent_level--;
+}
+
+void syntax_error(const char* expected, const char* found) {
+    fprintf(stderr, "Syntax error: Expected %s, found %s\n", expected, found);
+    exit(1);
 }
 
 %}
@@ -33,6 +40,7 @@ program:
 statement:
     simple_stmt
     | compound_stmt
+    | error { syntax_error("valid statement", $1); }
     ;
 
 simple_stmt:
@@ -72,6 +80,7 @@ while_stmt:
 
 for_stmt:
     FOR NAME IN expression COLON INDENT statement DEDENT
+    | error { syntax_error("FOR statement", $1); }
     ;
 
 expression:
