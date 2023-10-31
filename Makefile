@@ -1,3 +1,5 @@
+lex-install:
+	sudo apt install flex
 lex-compile:
 	flex flex.l
 	gcc lex.yy.c -o $(BINARY_NAME)
