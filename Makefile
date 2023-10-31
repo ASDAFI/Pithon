@@ -1,5 +1,10 @@
 lex-install:
 	sudo apt install flex
+bison-install:
+	sudo apt install bison
+dependencies:
+	make lex-install
+	make bison-install
 lex-build:
 	flex lexer.l
 	$(COMPILER) lex.yy.c -o $(BINARY_NAME)
